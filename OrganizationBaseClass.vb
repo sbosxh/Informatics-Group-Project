@@ -112,7 +112,7 @@ Option Infer Off
         Next t
         Return "Client: " & NextC() _
            & Environment.NewLine & "Client name: " _
-           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine & "Total: " & GoalReached()
+           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine & "Status: " & GoalReached()
     End Function
 
     Public MustOverride Function Levels() As Integer    'unknown calculation yet, hence mustoverride
