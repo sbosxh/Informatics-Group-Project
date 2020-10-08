@@ -120,7 +120,7 @@ Option Infer Off
         Next t
         Return "Client: " & NextC() _
            & Environment.NewLine & "Client name: " _
-           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine & "Total: " & CalcTot() & Environment.NewLine
+           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine
     End Function
 
     Public MustOverride Function Levels() As Integer    'unknown calculation yet, hence mustoverride
@@ -137,11 +137,13 @@ Option Infer Off
 
     Public Function GoalReached() As String Implements IDonate.GoalReached   'use of interface
         Dim Answer As String
-        If _FinancialGoal <= CalcTot() Then
-            Answer = "Congratulations, the financial goal has been reached."
-        Else
-            Answer = "Sorry, the financial goal was not attained."
-        End If
+        For t As Integer = 1 To _Amount.Length - 1
+            If _FinancialGoal <= _Amount(t) Then
+                Answer = "Congratulations, the financial goal has been reached."
+            Else
+                Answer = "Sorry, the financial goal was not attained."
+            End If
+        Next t
         Return Answer
     End Function
 End Class
