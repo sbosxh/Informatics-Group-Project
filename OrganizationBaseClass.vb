@@ -98,14 +98,6 @@ Option Infer Off
         Return _NextIndiv
     End Function
 
-    Public Overridable Function CalcTot() As Double   'finding the tot
-        Dim s As Double = 0
-        For a As Integer = 1 To _Amount.Length - 1   'Crashes here after choosing option1 of application accepted
-            s += Amount(a)
-        Next a
-        Return s
-    End Function
-
     Public Overridable Function Display() As String    'For organization
         Return "Organization name: " & OrgName & Environment.NewLine & "Country Name: " _
             & Country & Environment.NewLine _
@@ -120,7 +112,7 @@ Option Infer Off
         Next t
         Return "Client: " & NextC() _
            & Environment.NewLine & "Client name: " _
-           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine
+           & _NameofIndiv & Environment.NewLine & "Amount: " & d & Environment.NewLine & "Total: " & GoalReached()
     End Function
 
     Public MustOverride Function Levels() As Integer    'unknown calculation yet, hence mustoverride
@@ -137,8 +129,14 @@ Option Infer Off
 
     Public Function GoalReached() As String Implements IDonate.GoalReached   'use of interface
         Dim Answer As String
+        'Calculating the total
+        Dim Total As Double = 0
+        For a As Integer = 1 To _Amount.Length - 1
+            Total += _Amount(a)
+        Next a
+
         For t As Integer = 1 To _Amount.Length - 1
-            If _FinancialGoal <= _Amount(t) Then
+            If _FinancialGoal <= Total Then
                 Answer = "Congratulations, the financial goal has been reached."
             Else
                 Answer = "Sorry, the financial goal was not attained."
